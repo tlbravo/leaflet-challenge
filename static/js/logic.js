@@ -55,6 +55,22 @@ function createFeatures (earthquakeData) {
     createMap(earthquakes);
 }
 
+//Create Lengend
+let legend = L.control({position:"bottomright"});
+
+legend.onAdd = function(map) {
+    
+    let div = L.DomUtil.create("div", "info legend");
+    let depth = [-10,10,30,50,70,90];
+
+    for (let i =0; i <depth.length; i++) {
+        div.innerHTML += '<i style = "background:' + chooseColor(depth [i] +1) + '"></i>'+ 
+        depth[i] + (depth[i+1] ? '&ndash;' +depth [i+1]+ '<br>': '<br>');
+        
+    }
+    return div;
+};   
+
 function createMap (earthquakes) {
     //Base layers
     let street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -69,21 +85,8 @@ function createMap (earthquakes) {
         zoom: 4, 
         layers: [street, earthquakes]
     
-    }).addTo(myMap);
-    
-    //Create Lengend
-    let legend = L.control({position:"bottomright"});
-    
-    legend.onAdd = function(map) {
-        
-        let div = L.DomUtil.create("div", "info legend");
-        let depth = [-10,10,30,50,70,90];
+    });
 
-        for (let i =0; i <depth.length; i++) {
-            div.innerHTML += '<i style = "background:' + chooseColor(depth [i] +1) + '"></i>'+ 
-            depth[i] + (depth[i+1] ? '&ndash;' +depth [i+1]+ '<br>': '<br>');
-            
-        }
-        return div;
-    };   
+    L.control.layers(baseMaps, {collapsed:false}).addTo(myMap);
+    legend.addTo(myMap);    
 }
