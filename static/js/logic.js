@@ -31,7 +31,7 @@ function chooseColor(depth) {
 function createFeatures (earthquakeData) {
     //Bind popup that displays additional info for each marker.
     function onEachFeature(feature,layer) {
-        layer.bindPopup(`<h1>Location: ${feature.place}</h1> <hr> <h3>Time: ${feature.time}</h3><hr> <h3>Depth: ${feature.geometry.coordinates[2]}</h3> <h3>Location Detail: ${feature.place}</h3>`);
+        layer.bindPopup(`<h1>Location: ${feature.properties.place}</h1> <hr> <h3>Date: ${new Date(feature.properties.time)}</h3><hr> <h3>Depth: ${feature.geometry.coordinates[2]}</h3> <h3>Magnitude: ${feature.properties.mag}</h3>`);
     }
     //Create a geojson layer for array
     let earthquakeslayers  = L.geoJSON (earthquakeData, {
