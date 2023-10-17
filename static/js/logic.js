@@ -34,10 +34,10 @@ function createFeatures (earthquakeData) {
         layer.bindPopup(`<h1>Location: ${feature.properties.place}</h1> <hr> <h3>Date: ${new Date(feature.properties.time)}</h3><hr> <h3>Depth: ${feature.geometry.coordinates[2]}</h3> <h3>Magnitude: ${feature.properties.mag}</h3>`);
     }
     //Create a geojson layer for array
-    let earthquakeslayers  = L.geoJSON (earthquakeData, {
-        onEachFeature: onEachFeature});
+    // let earthquakeslayers  = L.geoJSON (earthquakeData, {
+    //     onEachFeature: onEachFeature});
 
-    //Marker properties
+    //Marker properties and geojson layer
     var earthquakes = L.geoJSON(earthquakeData, {
         pointToLayer: function(feature, latlng) {
             return L.circleMarker(latlng, {
